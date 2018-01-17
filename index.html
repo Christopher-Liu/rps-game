@@ -5,13 +5,33 @@
 </head>
 
 <body>
-  <p> Rock Paper Scissors game!</p>
+  <p>Rock Paper Scissors game!</p>
 
   <script>
+    function computerPlay() {
+      let choices = ['rock','scissors','paper'];
 
+      return choices[Math.floor(Math.random() * (3))];
+    }
 
+    function playRound(play,comp) {
+      if (play==='scissors' && comp==='rock') {
+        console.log('You lost! Opponent chose: ' + comp);
+      } else if (play==='scissors' && comp==='paper') {
+        console.log('You won! Opponent chose: ' + comp);
+      } else if (play==='rock' && comp==='scissors') {
+        console.log('You won! Opponent chose: ' + comp);
+      } else if (play==='rock' && comp==='paper') {
+        console.log('You lost! Opponent chose: ' + comp);
+      } else if (play==='paper' && comp==='rock') {
+        console.log('You won! Opponent chose: ' + comp);
+      } else if (play==='paper' && comp==='scissors') {
+        console.log('You lost! Opponent chose: ' + comp);
+      } else {
+        console.log('Tie game!');
+      }
+    }
   </script>
 </body>
-
 
 </html>
