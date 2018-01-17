@@ -5,7 +5,15 @@
 </head>
 
 <body>
-  <p>Rock Paper Scissors game!</p>
+  <h1>Rock Paper Scissors game!</h1>
+
+  <p>Use the developer console to play</p>
+  <p>Functions:</p>
+  <ul>
+    <li>computerPlay</li>
+    <li>playRound</li>
+    <li>game</li>
+  </ul>
 
   <script>
     function computerPlay() {
@@ -14,22 +22,56 @@
       return choices[Math.floor(Math.random() * (3))];
     }
 
+
     function playRound(play,comp) {
       if (play==='scissors' && comp==='rock') {
         console.log('You lost! Opponent chose: ' + comp);
+        return 0;
       } else if (play==='scissors' && comp==='paper') {
         console.log('You won! Opponent chose: ' + comp);
+        return 1;
       } else if (play==='rock' && comp==='scissors') {
         console.log('You won! Opponent chose: ' + comp);
+        return 1;
       } else if (play==='rock' && comp==='paper') {
         console.log('You lost! Opponent chose: ' + comp);
+        return 0;
       } else if (play==='paper' && comp==='rock') {
         console.log('You won! Opponent chose: ' + comp);
+        return 1;
       } else if (play==='paper' && comp==='scissors') {
         console.log('You lost! Opponent chose: ' + comp);
+        return 0;
       } else {
-        console.log('Tie game!');
+        console.log('Tie game! You chose ' + play + ' and computer chose ' + comp);
+        return 2;
       }
+    }
+
+
+    function game() {
+      let playerScore = 0;
+      let computerScore = 0;
+
+      for (let i=0; i<5; i++) {
+        let playerChoice = prompt('rock, paper, or scissors?');
+        let computerChoice = computerPlay();
+
+        while (!((playerChoice === 'rock') || (playerChoice === 'paper') || (playerChoice === 'scissors'))) {
+          playerChoice = prompt('Please try again');
+        }
+        // A while loop to make sure that the player enters a correctly-spelled option
+
+        let result = playRound(playerChoice,computerChoice);
+
+        if (result === 0) {
+          computerScore ++;
+        } else if (result === 1) {
+          playerScore ++;
+        }
+      }
+
+      console.log('5 rounds over! You won ' + playerScore + ' rounds and the computer won ' + computerScore + 'rounds' );
     }
   </script>
 </body>
