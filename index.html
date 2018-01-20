@@ -7,15 +7,25 @@
 <body>
   <h1>Rock Paper Scissors game!</h1>
 
-  <p>Use the developer console to play</p>
-  <p>Functions:</p>
-  <ul>
-    <li>computerPlay</li>
-    <li>playRound</li>
-    <li>game</li>
-  </ul>
+  <button id='rock'>Rock</button>
+  <button id='paper'>Paper</button>
+  <button id='scissors'>Scissors</button>
+
+  <p>Your score: <span id='playerScore'>0</span></p>
+  <p>Computer score: <span id='compScore'>0</span></p>
+
+  <div id='results'></div>
+
 
   <script>
+    const rock = document.querySelector('#rock');
+    const paper = document.querySelector('#paper');
+    const scissors = document.querySelector('#scissors');
+    const results = document.querySelector('#results');
+    const playerScore = document.querySelector('#playerScore');
+    const computerScore = document.querySelector('#compScore');
+
+
     function computerPlay() {
       let choices = ['rock','scissors','paper'];
 
@@ -24,55 +34,55 @@
 
 
     function playRound(play,comp) {
+      let matchResult = document.createElement('p');
+
       if (play==='scissors' && comp==='rock') {
-        console.log('You lost! Opponent chose: ' + comp);
-        return 0;
+        matchResult.textContent = 'You lost! You chose: ' + play +' Opponent chose: ' + comp;
+        computerScore.textContent = Number(computerScore.textContent) + 1;
       } else if (play==='scissors' && comp==='paper') {
-        console.log('You won! Opponent chose: ' + comp);
-        return 1;
+        matchResult.textContent = 'You won! You chose: ' + play +' Opponent chose: ' + comp;
+        playerScore.textContent = Number(playerScore.textContent) + 1;
       } else if (play==='rock' && comp==='scissors') {
-        console.log('You won! Opponent chose: ' + comp);
-        return 1;
+        matchResult.textContent = 'You won! You chose: ' + play +' Opponent chose: ' + comp;
+        playerScore.textContent = Number(playerScore.textContent) + 1;
       } else if (play==='rock' && comp==='paper') {
-        console.log('You lost! Opponent chose: ' + comp);
-        return 0;
+        matchResult.textContent = 'You lost! You chose: ' + play +' Opponent chose: ' + comp;
+        computerScore.textContent = Number(computerScore.textContent) + 1;
       } else if (play==='paper' && comp==='rock') {
-        console.log('You won! Opponent chose: ' + comp);
-        return 1;
+        matchResult.textContent = 'You won! You chose: ' + play +' Opponent chose: ' + comp;
+        playerScore.textContent = Number(playerScore.textContent) + 1;
       } else if (play==='paper' && comp==='scissors') {
-        console.log('You lost! Opponent chose: ' + comp);
-        return 0;
+        matchResult.textContent = 'You lost! You chose: ' + play +' Opponent chose: ' + comp;
+        computerScore.textContent = Number(computerScore.textContent) + 1;
       } else {
-        console.log('Tie game! You chose ' + play + ' and computer chose ' + comp);
-        return 2;
+        matchResult.textContent = 'Tie game!';
+      }
+
+      results.appendChild(matchResult);
+
+
+      if (Number(playerScore.textContent) === 5) {
+        let gameMessage = document.createElement('p');
+        gameMessage.textContent = 'You\'ve won the game!';
+        results.appendChild(gameMessage);
+      } else if (Number(computerScore.textContent) === 5) {
+        let gameMessage = document.createElement('p');
+        gameMessage.textContent = 'The computer won the game!';
+        results.appendChild(gameMessage);
       }
     }
 
 
-    function game() {
-      let playerScore = 0;
-      let computerScore = 0;
+    rock.addEventListener('click', function() {
+      playRound('rock', computerPlay() );
+    });
+    paper.addEventListener('click', function() {
+      playRound('paper', computerPlay() );
+    });
+    scissors.addEventListener('click', function() {
+      playRound('scissors', computerPlay() );
+    });
 
-      for (let i=0; i<5; i++) {
-        let playerChoice = prompt('rock, paper, or scissors?');
-        let computerChoice = computerPlay();
-
-        while (!((playerChoice === 'rock') || (playerChoice === 'paper') || (playerChoice === 'scissors'))) {
-          playerChoice = prompt('Please try again');
-        }
-        // A while loop to make sure that the player enters a correctly-spelled option
-
-        let result = playRound(playerChoice,computerChoice);
-
-        if (result === 0) {
-          computerScore ++;
-        } else if (result === 1) {
-          playerScore ++;
-        }
-      }
-
-      console.log('5 rounds over! You won ' + playerScore + ' rounds and the computer won ' + computerScore + 'rounds' );
-    }
   </script>
 </body>
 
